@@ -4,7 +4,6 @@ export default function Home() {
   return (
     <div className="stack">
       <section className="hero glass">
-        <p className="eyebrow">Caso de estudio · astronomía sin saturarte</p>
         <h1>Hay demasiado cielo. AstroIA te lo traduce a tu nivel.</h1>
         <p className="lead">
           Elige un planeta, una estrella o un fenómeno y recibe una explicación clara.

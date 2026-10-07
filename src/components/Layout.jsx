@@ -1,11 +1,11 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import ChatWidget from "./ChatWidget.jsx";
 
 const links = [
   { to: "/", label: "Inicio" },
   { to: "/explorar", label: "Explorar" },
   { to: "/observar", label: "Esta noche" },
-  { to: "/chat", label: "Chatbot" },
   { to: "/clasificar", label: "Clasificar" },
   { to: "/quiz", label: "Quiz" },
 ];
@@ -17,10 +17,7 @@ export default function Layout() {
       <header className="topbar">
         <NavLink to="/" className="brand">
           <span className="brand-mark">✦</span>
-          <span>
-            AstroIA
-            <small>Explorador inteligente del universo</small>
-          </span>
+          <span>AstroIA</span>
         </NavLink>
         <nav>
           {links.map((l) => (
@@ -52,6 +49,7 @@ export default function Layout() {
       <footer className="foot">
         Datos: catálogo propio + NASA APOD + Open-Meteo + posiciones con Astronomy Engine.
       </footer>
+      <ChatWidget />
     </div>
   );
 }

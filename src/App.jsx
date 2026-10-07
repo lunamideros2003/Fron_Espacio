@@ -4,7 +4,6 @@ import Home from "./pages/Home.jsx";
 import Explorar from "./pages/Explorar.jsx";
 import Objeto from "./pages/Objeto.jsx";
 import Observar from "./pages/Observar.jsx";
-import Chat from "./pages/Chat.jsx";
 import Clasificar from "./pages/Clasificar.jsx";
 import Quiz from "./pages/Quiz.jsx";
 import Entrar from "./pages/Entrar.jsx";
@@ -18,7 +17,6 @@ export default function App() {
         <Route path="/explorar" element={<Explorar />} />
         <Route path="/objeto/:slug" element={<Objeto />} />
         <Route path="/observar" element={<Observar />} />
-        <Route path="/chat" element={<Chat />} />
         <Route path="/clasificar" element={<Clasificar />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/entrar" element={<Entrar />} />
