@@ -7,6 +7,7 @@ export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  const [provider, setProvider] = useState(null);
   const [history, setHistory] = useState([
     {
       role: "assistant",
@@ -29,6 +30,7 @@ export default function ChatWidget() {
     setBusy(true);
     try {
       const d = await api.chat({ message, level: user?.level, history: next.slice(-8) });
+      setProvider(d.provider);
       setHistory([...next, { role: "assistant", content: d.reply }]);
     } catch (err) {
       setHistory([...next, { role: "assistant", content: err.message }]);
@@ -45,6 +47,13 @@ export default function ChatWidget() {
             <div>
               <p className="eyebrow">Chatbot astronómico</p>
               <h3>Habla con AstroIA</h3>
+              <span className="ai-badge">
+                {provider === "gemini"
+                  ? "IA: Google Gemini"
+                  : provider === "groq"
+                    ? "IA: Groq · Llama"
+                    : "IA: modo local"}
+              </span>
             </div>
             <button
               type="button"

@@ -419,6 +419,19 @@ select {
   line-height: 1;
 }
 
+.ai-badge {
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(142, 197, 255, 0.1);
+}
+
 .chat-widget .chat-messages {
   flex: 1;
   margin: 0;
