@@ -450,6 +450,245 @@ select {
   min-width: 0;
 }
 
+/* ===== Carta celeste ===== */
+.carta-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.92rem;
+}
+
+.carta-layout {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.carta-side {
+  display: grid;
+  gap: 1rem;
+}
+
+.carta-panel {
+  padding: 1rem;
+}
+
+.carta-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.carta-star {
+  fill: #ffffff;
+  cursor: pointer;
+}
+
+.carta-star:hover,
+.carta-star.is-sel {
+  fill: var(--gold);
+}
+
+.carta-body {
+  cursor: pointer;
+}
+
+.carta-body circle {
+  fill: var(--gold);
+}
+
+.carta-body text {
+  fill: var(--text);
+  font-size: 26px;
+}
+
+.carta-body.is-sel circle {
+  fill: #9dffc1;
+}
+
+.carta-cardinal {
+  fill: var(--gold);
+  font-size: 42px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.carta-grid-label {
+  fill: var(--muted);
+  font-size: 24px;
+  text-anchor: end;
+  dominant-baseline: middle;
+  opacity: 0.75;
+}
+
+.carta-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.carta-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  align-items: baseline;
+}
+
+.carta-list button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  cursor: pointer;
+  text-align: left;
+}
+
+.carta-list button:hover {
+  color: var(--gold);
+}
+
+/* ===== Rastreador de la ISS ===== */
+.mapa {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.mapa img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mapa-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.iss-track {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 7;
+  stroke-dasharray: 26 20;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+
+.iss-pass {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 8;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+
+.iss-pass.is-on {
+  stroke: #9dffc1;
+  stroke-width: 15;
+  opacity: 1;
+}
+
+.iss-now .iss-halo {
+  fill: rgba(142, 197, 255, 0.25);
+}
+
+.iss-now .iss-dot {
+  fill: var(--accent);
+  stroke: #ffffff;
+  stroke-width: 5;
+}
+
+.iss-now text {
+  fill: #ffffff;
+  font-size: 40px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: rgba(2, 6, 18, 0.85);
+  stroke-width: 6px;
+}
+
+.iss-you circle,
+.iss-you line {
+  fill: none;
+  stroke: #9dffc1;
+  stroke-width: 5;
+}
+
+.dot {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  margin-right: 0.45rem;
+  vertical-align: middle;
+}
+
+.dot-track {
+  background: var(--accent);
+}
+.dot-pass {
+  background: var(--gold);
+}
+.dot-you {
+  background: #9dffc1;
+}
+
+.pases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pases li {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.pases li.is-on {
+  border-color: var(--gold);
+  background: rgba(243, 212, 138, 0.08);
+}
+
+.pases button {
+  width: 100%;
+  display: grid;
+  gap: 0.2rem;
+  text-align: left;
+  padding: 0.8rem 1rem;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.pases button strong {
+  color: var(--gold);
+  font-size: 1.02rem;
+}
+
+.pases button span {
+  display: block;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .carta-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 800px) {
   .apod,
   .detail {
