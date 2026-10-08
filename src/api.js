@@ -37,4 +37,27 @@ export const api = {
   scores: () => request("/api/quiz/scores"),
   chat: (body) => request("/api/chat", { method: "POST", body: JSON.stringify(body) }),
   classify: (body) => request("/api/chat/classify", { method: "POST", body: JSON.stringify(body) }),
+  skyChart: (lat, lng, date) => {
+    const q = new URLSearchParams();
+    if (lat != null) q.set("lat", lat);
+    if (lng != null) q.set("lng", lng);
+    if (date) q.set("date", date);
+    const s = q.toString();
+    return request(`/api/sky/chart${s ? `?${s}` : ""}`);
+  },
+  issTrack: (minutes, step) => {
+    const q = new URLSearchParams();
+    if (minutes) q.set("minutes", minutes);
+    if (step) q.set("step", step);
+    const s = q.toString();
+    return request(`/api/iss/track${s ? `?${s}` : ""}`);
+  },
+  issOverhead: (lat, lng, hours) => {
+    const q = new URLSearchParams();
+    if (lat != null) q.set("lat", lat);
+    if (lng != null) q.set("lng", lng);
+    if (hours) q.set("hours", hours);
+    const s = q.toString();
+    return request(`/api/iss/overhead${s ? `?${s}` : ""}`);
+  },
 };
