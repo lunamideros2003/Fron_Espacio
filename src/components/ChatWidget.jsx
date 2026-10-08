@@ -2,6 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { useAuth } from "../context/AuthContext.jsx";
 
+// Convierte **texto** del chatbot en negrita real.
+export function renderBold(text) {
+  return String(text)
+    .split(/\*\*(.+?)\*\*/g)
+    .map((part, i) =>
+      i % 2 === 1 ? <strong key={i}>{part}</strong> : <span key={i}>{part}</span>
+    );
+}
+
 export default function ChatWidget() {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
@@ -68,7 +77,7 @@ export default function ChatWidget() {
           <div className="chat-messages" ref={boxRef}>
             {history.map((m, i) => (
               <div key={i} className={`bubble ${m.role}`}>
-                {m.content}
+                {renderBold(m.content)}
               </div>
             ))}
             {busy && <div className="bubble assistant">Mirando al cielo…</div>}

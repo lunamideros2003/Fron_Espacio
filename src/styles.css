@@ -314,6 +314,11 @@ select {
   border: 1px solid var(--line);
 }
 
+.bubble strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
 .chat-form input {
   flex: 1;
 }
