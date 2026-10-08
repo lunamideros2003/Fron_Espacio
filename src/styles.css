@@ -112,13 +112,6 @@ nav a.active,
   flex: 1;
 }
 
-.foot {
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.8rem;
-  padding: 1rem;
-}
-
 .glass {
   background: var(--glass);
   border: 1px solid var(--line);

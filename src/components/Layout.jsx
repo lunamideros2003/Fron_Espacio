@@ -46,9 +46,6 @@ export default function Layout() {
       <main className="page">
         <Outlet />
       </main>
-      <footer className="foot">
-        Datos: catálogo propio + NASA APOD + Open-Meteo + posiciones con Astronomy Engine.
-      </footer>
       <ChatWidget />
     </div>
   );
