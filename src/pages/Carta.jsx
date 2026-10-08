@@ -15,6 +15,33 @@ function parseUtc(iso) {
   return new Date(hasZone ? iso : `${iso}Z`);
 }
 
+function overlaps(a, b) {
+  return a.left < b.left + b.width && b.left < a.left + a.width && a.top < b.top + b.height && b.top < a.top + a.height;
+}
+
+function placeBodyLabels(bodies) {
+  const placed = [];
+  return bodies.map((b) => {
+    if (!b.visible) return { ...b, showLabel: false };
+    const width = b.name.length * 15 + 12;
+    const sides = b.x >= CENTER ? [-1, 1] : [1, -1];
+    for (const side of sides) {
+      const labelX = b.x + side * (b.size + 9);
+      const box = {
+        left: side === 1 ? labelX : labelX - width,
+        top: b.y - 16,
+        width,
+        height: 32,
+      };
+      if (!placed.some((p) => overlaps(box, p))) {
+        placed.push(box);
+        return { ...b, showLabel: true, labelX, labelAnchor: side === 1 ? "start" : "end" };
+      }
+    }
+    return { ...b, showLabel: false };
+  });
+}
+
 export default function Carta() {
   const { user } = useAuth();
   const [lat, setLat] = useState(user?.latitude ?? "");
@@ -156,16 +183,18 @@ export default function Carta() {
                       onClick={() => setSelected({ ...s, kind: "star" })}
                     />
                   ))}
-                  {data.bodies.map((b) => (
+                  {placeBodyLabels(data.bodies).map((b) => (
                     <g
                       key={b.slug}
                       className={`carta-body${selected?.name === b.name ? " is-sel" : ""}`}
                       onClick={() => setSelected({ ...b, kind: "body" })}
                     >
                       <circle cx={b.x} cy={b.y} r={b.size} fillOpacity={b.opacity} />
-                      <text x={b.x + b.size + 7} y={b.y + 5}>
-                        {b.name}
-                      </text>
+                      {b.showLabel && (
+                        <text x={b.labelX} y={b.y + 5} textAnchor={b.labelAnchor}>
+                          {b.name}
+                        </text>
+                      )}
                     </g>
                   ))}
                 </g>
