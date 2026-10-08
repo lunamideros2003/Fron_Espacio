@@ -6,6 +6,8 @@ const links = [
   { to: "/", label: "Inicio" },
   { to: "/explorar", label: "Explorar" },
   { to: "/observar", label: "Esta noche" },
+  { to: "/carta", label: "Carta celeste" },
+  { to: "/iss", label: "ISS" },
   { to: "/clasificar", label: "Clasificar" },
   { to: "/quiz", label: "Quiz" },
 ];

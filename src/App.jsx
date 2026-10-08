@@ -4,6 +4,8 @@ import Home from "./pages/Home.jsx";
 import Explorar from "./pages/Explorar.jsx";
 import Objeto from "./pages/Objeto.jsx";
 import Observar from "./pages/Observar.jsx";
+import Carta from "./pages/Carta.jsx";
+import Iss from "./pages/Iss.jsx";
 import Clasificar from "./pages/Clasificar.jsx";
 import Quiz from "./pages/Quiz.jsx";
 import Entrar from "./pages/Entrar.jsx";
@@ -17,6 +19,8 @@ export default function App() {
         <Route path="/explorar" element={<Explorar />} />
         <Route path="/objeto/:slug" element={<Objeto />} />
         <Route path="/observar" element={<Observar />} />
+        <Route path="/carta" element={<Carta />} />
+        <Route path="/iss" element={<Iss />} />
         <Route path="/clasificar" element={<Clasificar />} />
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/entrar" element={<Entrar />} />
