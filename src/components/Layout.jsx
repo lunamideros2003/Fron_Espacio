@@ -1,33 +1,25 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { titleForPath, useDocumentTitle } from "../hooks/useDocumentTitle.js";
 import ChatWidget from "./ChatWidget.jsx";
-
-const links = [
-  { to: "/", label: "Inicio" },
-  { to: "/explorar", label: "Explorar" },
-  { to: "/observar", label: "Esta noche" },
-  { to: "/carta", label: "Carta celeste" },
-  { to: "/iss", label: "ISS" },
-  { to: "/clasificar", label: "Clasificar" },
-  { to: "/quiz", label: "Quiz" },
-];
+import ConstellationMenu from "./ConstellationMenu.jsx";
 
 export default function Layout() {
   const { user, logout } = useAuth();
+  const { pathname } = useLocation();
+  const home = pathname === "/";
+  useDocumentTitle(titleForPath(pathname));
+
   return (
     <div className="app-shell">
+      <a className="skip-link" href="#contenido">
+        Saltar al contenido
+      </a>
       <header className="topbar">
         <NavLink to="/" className="brand">
           <span className="brand-mark">✦</span>
           <span>AstroIA</span>
         </NavLink>
-        <nav>
-          {links.map((l) => (
-            <NavLink key={l.to} to={l.to} end={l.to === "/"}>
-              {l.label}
-            </NavLink>
-          ))}
-        </nav>
         <div className="session">
           {user ? (
             <>
@@ -45,7 +37,12 @@ export default function Layout() {
           )}
         </div>
       </header>
-      <main className="page">
+      {!home && (
+        <nav className="constellation-bar" aria-label="Menú del cielo">
+          <ConstellationMenu compact />
+        </nav>
+      )}
+      <main className="page" id="contenido">
         <Outlet />
       </main>
       <ChatWidget />
