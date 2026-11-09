@@ -1,5 +1,3 @@
-// En desarrollo Vite hace proxy de /api -> localhost:4000.
-// En producción (Vercel) apunta al backend desplegado con VITE_API_URL.
 const BASE = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 
 const token = () => localStorage.getItem("astroia_token");
