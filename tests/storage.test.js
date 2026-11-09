@@ -41,6 +41,13 @@ test("removes keys", () => {
   assert.equal(globalThis.localStorage.getItem("astroia_gone"), null);
 });
 
+test("survives a missing localStorage", () => {
+  delete globalThis.localStorage;
+  assert.equal(readJson("astroia_none", "vacio"), "vacio");
+  assert.equal(writeJson("astroia_none", 1), false);
+  assert.doesNotThrow(() => removeKey("astroia_none"));
+});
+
 test("survives a storage that throws", () => {
   globalThis.localStorage = {
     getItem() {
