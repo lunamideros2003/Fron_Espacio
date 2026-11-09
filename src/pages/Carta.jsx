@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { api } from "../api.js";
-import { useAuth } from "../context/AuthContext.jsx";
+import PlaceNote from "../components/PlaceNote.jsx";
+import { useSkyPlace } from "../hooks/useSkyPlace.js";
+import { formatDateTime } from "../lib/format.js";
 
 const CENTER = 500;
 const HORIZON = 450;
@@ -9,11 +11,6 @@ const DIRS = ["N", "NE", "E", "SE", "S", "SO", "O", "NO"];
 
 const ringRadius = (altitude) => ((90 - altitude) / 90) * HORIZON;
 const compass = (azimuth) => DIRS[Math.round(azimuth / 45) % 8];
-
-function parseUtc(iso) {
-  const hasZone = /Z$|[+-]\d{2}:\d{2}$/.test(iso);
-  return new Date(hasZone ? iso : `${iso}Z`);
-}
 
 function overlaps(a, b) {
   return a.left < b.left + b.width && b.left < a.left + a.width && a.top < b.top + b.height && b.top < a.top + a.height;
@@ -43,42 +40,37 @@ function placeBodyLabels(bodies) {
 }
 
 export default function Carta() {
-  const { user } = useAuth();
-  const [lat, setLat] = useState(user?.latitude ?? "");
-  const [lng, setLng] = useState(user?.longitude ?? "");
+  const skyPlace = useSkyPlace();
+  const { place } = skyPlace;
   const [when, setWhen] = useState("");
   const [data, setData] = useState(null);
   const [selected, setSelected] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  async function load(e) {
-    e?.preventDefault();
-    setLoading(true);
-    setError("");
-    try {
-      const iso = when ? new Date(when).toISOString() : undefined;
-      const d = await api.skyChart(lat || undefined, lng || undefined, iso);
-      setData(d);
-      setSelected(null);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
-    load();
-  }, []);
-
-  function geo() {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition((pos) => {
-      setLat(pos.coords.latitude.toFixed(4));
-      setLng(pos.coords.longitude.toFixed(4));
-    });
-  }
+    if (!place) return;
+    let cancel = false;
+    (async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const iso = when ? new Date(when).toISOString() : undefined;
+        const d = await api.skyChart(place.latitude, place.longitude, iso);
+        if (!cancel) {
+          setData(d);
+          setSelected(null);
+        }
+      } catch (err) {
+        if (!cancel) setError(err.message);
+      } finally {
+        if (!cancel) setLoading(false);
+      }
+    })();
+    return () => {
+      cancel = true;
+    };
+  }, [place, when]);
 
   const bright = data
     ? data.stars.filter((s) => s.visible).sort((a, b) => a.magnitude - b.magnitude).slice(0, 12)
@@ -96,18 +88,17 @@ export default function Carta() {
             Una carta circular: el cenit queda en el centro, el horizonte en el borde y el norte arriba.
             Estrellas, planetas y la Luna calculados con efemérides reales.
           </p>
+          <PlaceNote {...skyPlace} />
         </div>
-        <form className="loc-form" onSubmit={load}>
-          <input type="number" step="0.0001" placeholder="Latitud" value={lat} onChange={(e) => setLat(e.target.value)} />
-          <input type="number" step="0.0001" placeholder="Longitud" value={lng} onChange={(e) => setLng(e.target.value)} />
+        <label className="loc-form">
+          <span className="muted">Otro momento</span>
           <input type="datetime-local" value={when} onChange={(e) => setWhen(e.target.value)} />
-          <button type="button" className="ghost" onClick={geo}>
-            Mi ubicación
-          </button>
-          <button className="btn" type="submit">
-            Dibujar carta
-          </button>
-        </form>
+          {when && (
+            <button type="button" className="ghost" onClick={() => setWhen("")}>
+              Ahora
+            </button>
+          )}
+        </label>
       </section>
 
       {error && <p className="glass card">{error}</p>}
@@ -117,11 +108,9 @@ export default function Carta() {
         <>
           <div className="carta-meta">
             <span>
-              {parseUtc(data.when).toLocaleString()} · {visibleCount} estrellas sobre el horizonte
+              {formatDateTime(data.when)} · {visibleCount} estrellas sobre el horizonte
             </span>
-            <span className="muted">
-              {data.location.latitude.toFixed(3)}, {data.location.longitude.toFixed(3)}
-            </span>
+            <span className="muted">{place?.label || data.location.label || "Tu zona"}</span>
           </div>
 
           <div className="carta-layout">
