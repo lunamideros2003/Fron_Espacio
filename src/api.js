@@ -10,7 +10,7 @@ async function request(path, options = {}) {
   if (t) headers.Authorization = `Bearer ${t}`;
   const res = await fetch(`${BASE}${path}`, { ...options, headers });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || "Error de red");
+  if (!res.ok) throw new Error(data.error || data.detail || "No pudimos conectar con el servidor.");
   return data;
 }
 
