@@ -32,6 +32,10 @@
   margin-inline: auto;
 }
 
+.home-sky + .grid-3 {
+  margin-top: 0.35rem;
+}
+
 .constellation-bar {
   position: relative;
   display: block;
