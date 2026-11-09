@@ -25,3 +25,14 @@ propenso a errores. Ahora la app resuelve el lugar en este orden:
 
 `source` puede ser `browser`, `profile`, `ip`, `search` o `fallback`, y la UI
 muestra un mensaje distinto para cada uno.
+
+## Problemas frecuentes
+
+- **Siempre aparece Bogota:** el navegador bloqueo el GPS y la IP no se pudo
+  resolver. Usa "Cambiar" y busca la ciudad a mano.
+- **La ciudad no aparece:** prueba con el pais, por ejemplo "Pasto, Colombia".
+  La busqueda espera al menos dos letras.
+- **Cambio de ciudad y sigue igual:** el lugar se guarda 12 h. El boton
+  "Cambiar" reemplaza el valor guardado al instante.
+- **Permiso de ubicacion denegado:** la app sigue funcionando con IP o con la
+  ciudad elegida; no vuelve a pedir permiso en cada visita.
