@@ -119,8 +119,8 @@
 }
 
 .is-compact .constellation-hit {
-  width: 2.1rem;
-  height: 2.1rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .is-compact .constellation-hit::before {
