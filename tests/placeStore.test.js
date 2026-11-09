@@ -55,6 +55,18 @@ test("corrupt storage is ignored", () => {
   assert.equal(readSavedPlace(), null);
 });
 
+test("places stay valid until the ttl boundary", () => {
+  const now = 1_000;
+  savePlace(place, now);
+  assert.deepEqual(readSavedPlace(now + PLACE_TTL_MS), place);
+  assert.deepEqual(readSavedPlace(now + PLACE_TTL_MS + 1), null);
+});
+
+test("invalid places are never saved", () => {
+  assert.equal(savePlace({ ...place, latitude: 91 }), false);
+  assert.equal(readSavedPlace(), null);
+});
+
 test("clear removes the saved place", () => {
   savePlace(place);
   clearSavedPlace();
