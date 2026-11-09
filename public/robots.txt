@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fron-espacio.vercel.app/sitemap.xml
