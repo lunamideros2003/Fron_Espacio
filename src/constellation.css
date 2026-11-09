@@ -153,6 +153,7 @@
 .constellation-hit:focus-visible .constellation-label,
 .constellation-hit.is-active .constellation-label {
   color: #ffffff;
+  text-shadow: 0 0 10px rgba(243, 212, 138, 0.55), 0 2px 12px rgba(0, 0, 0, 0.9);
 }
 
 .constellation-hit.is-active .constellation-label {
