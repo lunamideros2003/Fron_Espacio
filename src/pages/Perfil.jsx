@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { api } from "../api.js";
+import PlaceNote from "../components/PlaceNote.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
+import { useSkyPlace } from "../hooks/useSkyPlace.js";
 
 export default function Perfil() {
   const { user, login, ready } = useAuth();
+  const skyPlace = useSkyPlace();
   const [form, setForm] = useState(user || {});
   const [scores, setScores] = useState(null);
   const [obs, setObs] = useState([]);
@@ -25,13 +28,7 @@ export default function Perfil() {
 
   async function save(e) {
     e.preventDefault();
-    const d = await api.updateMe({
-      name: form.name,
-      level: form.level,
-      city: form.city,
-      latitude: form.latitude ? Number(form.latitude) : null,
-      longitude: form.longitude ? Number(form.longitude) : null,
-    });
+    const d = await api.updateMe({ name: form.name, level: form.level });
     login(d);
     setMsg("Perfil actualizado.");
   }
@@ -52,21 +49,16 @@ export default function Perfil() {
             <option value="advanced">Avanzado</option>
           </select>
         </label>
-        <label>
-          Ciudad
-          <input value={form.city || ""} onChange={(e) => setForm({ ...form, city: e.target.value })} />
-        </label>
-        <label>
-          Latitud
-          <input value={form.latitude || ""} onChange={(e) => setForm({ ...form, latitude: e.target.value })} />
-        </label>
-        <label>
-          Longitud
-          <input value={form.longitude || ""} onChange={(e) => setForm({ ...form, longitude: e.target.value })} />
-        </label>
+        <p className="muted">El cielo usa tu ubicación del dispositivo. No hace falta escribir coordenadas.</p>
         <button className="btn">Guardar</button>
         {msg && <p className="ok">{msg}</p>}
       </form>
+
+      <section className="glass card">
+        <h2>Tu cielo</h2>
+        <PlaceNote {...skyPlace} />
+      </section>
+
       <section className="glass card">
         <h2>Puntuaciones</h2>
         {scores ? (
@@ -77,6 +69,7 @@ export default function Perfil() {
           <p className="muted">Aún no hay quizzes.</p>
         )}
       </section>
+
       <section className="glass card">
         <h2>Observaciones</h2>
         {obs.length === 0 && <p className="muted">Todavía no registras objetos.</p>}
