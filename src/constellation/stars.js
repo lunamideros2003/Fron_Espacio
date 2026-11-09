@@ -1,5 +1,3 @@
-// Home menu: a Big Dipper-like constellation. The handle is the journey
-// (explore, tonight, chart, classify) and the bowl holds the rest.
 export const HOME_STARS = [
   { id: "explorar", label: "Explorar", to: "/explorar", x: 120, y: 140, side: "left" },
   { id: "noche", label: "Esta noche", to: "/observar", x: 215, y: 215, side: "left" },
@@ -10,7 +8,6 @@ export const HOME_STARS = [
   { id: "inicio", label: "Inicio", to: "/", x: 800, y: 390, side: "right", bright: true },
 ];
 
-// Compact menu: a gentle chain of stars for every page except the home.
 export const COMPACT_STARS = [
   { id: "explorar", label: "Explorar", to: "/explorar", x: 80, y: 112, side: "up" },
   { id: "noche", label: "Esta noche", to: "/observar", x: 215, y: 68, side: "up" },
