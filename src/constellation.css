@@ -316,6 +316,15 @@
 }
 
 @media (max-width: 800px) {
+  .constellation-bar {
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .constellation-stage.is-compact {
+    min-width: 680px;
+  }
+
   .constellation-label {
     font-size: 0.72rem;
   }
