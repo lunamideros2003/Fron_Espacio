@@ -20,6 +20,11 @@
   font-size: clamp(2rem, 4vw, 3.2rem);
 }
 
+.home-sky .constellation-stage {
+  width: min(100%, 960px, 86vh);
+  margin-inline: auto;
+}
+
 .constellation-bar {
   position: relative;
   display: block;
