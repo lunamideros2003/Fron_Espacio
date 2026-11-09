@@ -25,7 +25,7 @@ export default function PlaceNote({ place, status, error, detect, choose }) {
   if (!place) return null;
 
   return (
-    <div className="place-note">
+    <div className="place-note" role="status" aria-live="polite">
       <span className="place-pin" aria-hidden="true">
         ✦
       </span>
