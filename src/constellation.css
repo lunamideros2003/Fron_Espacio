@@ -141,10 +141,11 @@
   bottom: calc(100% + 0.15rem);
   transform: translateX(-50%);
   color: #f3d48a;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
+  font-weight: 500;
   letter-spacing: 0.03em;
   white-space: nowrap;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95), 0 2px 14px rgba(0, 0, 0, 0.85);
   pointer-events: none;
 }
 
