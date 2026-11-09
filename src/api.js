@@ -52,6 +52,16 @@ export const api = {
     const s = q.toString();
     return request(`/api/iss/track${s ? `?${s}` : ""}`);
   },
+  place: (lat, lng) => {
+    const q = new URLSearchParams();
+    if (lat != null && lng != null) {
+      q.set("lat", lat);
+      q.set("lng", lng);
+    }
+    const s = q.toString();
+    return request(`/api/place${s ? `?${s}` : ""}`);
+  },
+  searchPlaces: (text) => request(`/api/place/search?q=${encodeURIComponent(text)}`),
   issOverhead: (lat, lng, hours) => {
     const q = new URLSearchParams();
     if (lat != null) q.set("lat", lat);
