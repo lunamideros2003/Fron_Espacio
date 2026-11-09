@@ -1,5 +1,11 @@
 # Despliegue del frontend
 
+## Orden recomendado
+
+1. Supabase: crear proyecto y ejecutar `Back_Espacio/supabase/schema.sql`.
+2. Render: desplegar el backend con la cadena de Supabase.
+3. Vercel: desplegar el frontend apuntando a Render.
+
 ## Vercel
 
 1. Importa el repositorio `Fron_Espacio`.
@@ -26,3 +32,5 @@ puerto, cambia `vite.config.js`.
 - [ ] `VITE_API_URL` apunta a Render (sin barra final).
 - [ ] El backend permite el origen de Vercel en CORS.
 - [ ] `/api/health/db` responde 200 antes de probar la app.
+- [ ] La portada muestra la constelación sin pedir coordenadas.
+- [ ] `/carta` dibuja el cielo con la ubicación automática.
