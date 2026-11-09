@@ -79,31 +79,33 @@ body::before {
   font-size: 1.4rem;
 }
 
-nav {
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-  flex: 1;
-}
-
-nav a,
-.user-chip {
-  color: var(--muted);
-  text-decoration: none;
-  padding: 0.35rem 0.7rem;
-  border-radius: 999px;
-}
-
-nav a.active,
-.user-chip {
-  color: var(--text);
-  background: rgba(142, 197, 255, 0.14);
-}
-
 .session {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-left: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 100;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #08122a;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 0.7rem;
+}
+
+.not-found {
+  max-width: 620px;
+  margin: 2rem auto;
 }
 
 .page {
@@ -174,6 +176,19 @@ h3 {
   gap: 0.6rem;
   flex-wrap: wrap;
   margin-top: 1rem;
+  align-items: center;
+}
+
+.user-chip {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+}
+
+.user-chip.active {
+  color: var(--text);
+  background: rgba(142, 197, 255, 0.14);
 }
 
 .btn,
@@ -693,8 +708,5 @@ select {
   .apod,
   .detail {
     grid-template-columns: 1fr;
-  }
-  nav {
-    display: none;
   }
 }
