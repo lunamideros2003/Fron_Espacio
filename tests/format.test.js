@@ -14,6 +14,10 @@ test("parseUtc treats zone-less timestamps as UTC", () => {
   assert.equal(parseUtc("2024-01-01T00:00:00Z").toISOString(), "2024-01-01T00:00:00.000Z");
 });
 
+test("parseUtc keeps the instant when an offset is present", () => {
+  assert.equal(parseUtc("2024-01-01T00:00:00-05:00").toISOString(), "2024-01-01T05:00:00.000Z");
+});
+
 test("parseUtc rejects empty and invalid values", () => {
   assert.equal(parseUtc(""), null);
   assert.equal(parseUtc("nope"), null);
