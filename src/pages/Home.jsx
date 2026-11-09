@@ -1,22 +1,20 @@
-import { Link } from "react-router-dom";
+import ConstellationMenu from "../components/ConstellationMenu.jsx";
+import PlaceNote from "../components/PlaceNote.jsx";
+import { useSkyPlace } from "../hooks/useSkyPlace.js";
 
 export default function Home() {
+  const skyPlace = useSkyPlace();
+
   return (
     <div className="stack">
-      <section className="hero glass">
-        <h1>Hay demasiado cielo. AstroIA te lo traduce a tu nivel.</h1>
-        <p className="lead">
-          Elige un planeta, una estrella o un fenómeno y recibe una explicación clara.
-          Pregunta al chatbot, clasifica luces extrañas y descubre qué puedes observar esta noche.
-        </p>
-        <div className="actions">
-          <Link className="btn" to="/observar">
-            ¿Qué puedo observar esta noche?
-          </Link>
-          <Link className="btn ghost" to="/explorar">
-            Explorar el catálogo
-          </Link>
+      <section className="home-sky">
+        <div className="home-sky-head">
+          <p className="eyebrow">Menú del cielo</p>
+          <h1>Elige una estrella</h1>
+          <p className="lead">Cada punto de la constelación es una parte de AstroIA. Tócala para entrar.</p>
+          <PlaceNote {...skyPlace} />
         </div>
+        <ConstellationMenu />
       </section>
 
       <section className="grid-3">
@@ -33,7 +31,6 @@ export default function Home() {
           <p>Quiz generado desde el catálogo y puntuaciones guardadas en tu perfil.</p>
         </article>
       </section>
-
     </div>
   );
 }
