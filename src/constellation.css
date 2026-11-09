@@ -58,8 +58,8 @@
 .constellation-stage::before {
   content: "";
   position: absolute;
-  inset: 8% 12%;
-  background: radial-gradient(ellipse at center, rgba(142, 197, 255, 0.12), transparent 70%);
+  inset: 6% 10%;
+  background: radial-gradient(ellipse at center, rgba(142, 197, 255, 0.1), transparent 70%);
   pointer-events: none;
 }
 
