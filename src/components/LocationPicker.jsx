@@ -12,8 +12,15 @@ export default function LocationPicker({ onGps, onSelect }) {
     function onPointer(event) {
       if (box.current && !box.current.contains(event.target)) setOpen(false);
     }
+    function onKey(event) {
+      if (event.key === "Escape") setOpen(false);
+    }
     document.addEventListener("pointerdown", onPointer);
-    return () => document.removeEventListener("pointerdown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
   }, [open]);
 
   function pick(place) {
