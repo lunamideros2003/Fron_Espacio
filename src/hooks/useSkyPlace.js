@@ -32,7 +32,7 @@ export function useSkyPlace() {
       return data.place;
     } catch (err) {
       setStatus("error");
-      setError(err.message || "No pudimos ubicar tu cielo.");
+      setError(err.message || "No pudimos ubicar tu cielo. Elige una ciudad o reintenta.");
       return null;
     }
   }, [choose]);
