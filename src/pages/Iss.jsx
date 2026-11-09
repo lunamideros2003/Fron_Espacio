@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { api } from "../api.js";
-import { useAuth } from "../context/AuthContext.jsx";
+import PlaceNote from "../components/PlaceNote.jsx";
+import { useSkyPlace } from "../hooks/useSkyPlace.js";
+import { formatDateTime, formatDegrees } from "../lib/format.js";
 
 const MAP_W = 1920;
 const MAP_H = 960;
@@ -9,11 +11,6 @@ const DIRS = ["N", "NE", "E", "SE", "S", "SO", "O", "NO"];
 const px = (lon) => ((lon + 180) / 360) * MAP_W;
 const py = (lat) => ((90 - lat) / 180) * MAP_H;
 const compass = (azimuth) => DIRS[Math.round(azimuth / 45) % 8];
-
-function parseUtc(iso) {
-  const hasZone = /Z$|[+-]\d{2}:\d{2}$/.test(iso);
-  return new Date(hasZone ? iso : `${iso}Z`);
-}
 
 function toSegments(points) {
   const segments = [];
@@ -34,9 +31,8 @@ function toSegments(points) {
 const toPolyline = (points) => points.map((p) => `${px(p.longitude)},${py(p.latitude)}`).join(" ");
 
 export default function Iss() {
-  const { user } = useAuth();
-  const [lat, setLat] = useState(user?.latitude ?? "");
-  const [lng, setLng] = useState(user?.longitude ?? "");
+  const skyPlace = useSkyPlace();
+  const { place } = skyPlace;
   const [hours, setHours] = useState(24);
   const [track, setTrack] = useState(null);
   const [passes, setPasses] = useState(null);
@@ -44,35 +40,31 @@ export default function Iss() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  async function load(nextHours = hours) {
-    setLoading(true);
-    setError("");
-    try {
-      const [t, o] = await Promise.all([
-        api.issTrack(60, 300),
-        api.issOverhead(lat || undefined, lng || undefined, nextHours),
-      ]);
-      setTrack(t);
-      setPasses(o);
-      setSelected(null);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
-    load(24);
-  }, []);
-
-  function geo() {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition((pos) => {
-      setLat(pos.coords.latitude.toFixed(4));
-      setLng(pos.coords.longitude.toFixed(4));
-    });
-  }
+    if (!place) return;
+    let cancel = false;
+    (async () => {
+      setLoading(true);
+      setError("");
+      try {
+        const [t, o] = await Promise.all([
+          api.issTrack(60, 300),
+          api.issOverhead(place.latitude, place.longitude, hours),
+        ]);
+        if (cancel) return;
+        setTrack(t);
+        setPasses(o);
+        setSelected(null);
+      } catch (err) {
+        if (!cancel) setError(err.message);
+      } finally {
+        if (!cancel) setLoading(false);
+      }
+    })();
+    return () => {
+      cancel = true;
+    };
+  }, [place, hours]);
 
   const current = track?.current;
   const trackSegments = track ? toSegments(track.path) : [];
@@ -89,23 +81,8 @@ export default function Iss() {
             Posición en vivo, órbita próxima sobre el mapa y los pases visibles desde tu ciudad en las próximas
             horas.
           </p>
+          <PlaceNote {...skyPlace} />
         </div>
-        <form
-          className="loc-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            load();
-          }}
-        >
-          <input type="number" step="0.0001" placeholder="Latitud" value={lat} onChange={(e) => setLat(e.target.value)} />
-          <input type="number" step="0.0001" placeholder="Longitud" value={lng} onChange={(e) => setLng(e.target.value)} />
-          <button type="button" className="ghost" onClick={geo}>
-            Mi ubicación
-          </button>
-          <button className="btn" type="submit">
-            Buscar pases
-          </button>
-        </form>
       </section>
 
       {error && <p className="glass card">{error}</p>}
@@ -119,7 +96,7 @@ export default function Iss() {
               {current ? (
                 <>
                   <h3>
-                    {current.latitude.toFixed(2)}°, {current.longitude.toFixed(2)}°
+                    {formatDegrees(current.latitude, 2)}, {formatDegrees(current.longitude, 2)}
                   </h3>
                   <p>{Math.round(current.altitudeKm)} km de altura</p>
                   <p className="muted">{Math.round(current.velocityKmh)} km/h</p>
@@ -140,10 +117,7 @@ export default function Iss() {
                     key={h}
                     type="button"
                     className={hours === h ? "chip on" : "chip"}
-                    onClick={() => {
-                      setHours(h);
-                      load(h);
-                    }}
+                    onClick={() => setHours(h)}
                   >
                     {h} h
                   </button>
@@ -213,15 +187,15 @@ export default function Iss() {
 
       {passes && (
         <section className="glass card">
-          <p className="eyebrow">Próximos pases sobre {passes.location.assumed ? "tu ubicación asumida" : "tu ubicación"}</p>
+          <p className="eyebrow">Próximos pases sobre {place?.label || "tu zona"}</p>
           {passList.length ? (
             <ol className="pases">
               {passList.map((p, i) => (
                 <li key={p.start} className={selected === i ? "is-on" : ""}>
                   <button type="button" onClick={() => setSelected(selected === i ? null : i)}>
-                    <strong>{parseUtc(p.start).toLocaleString()}</strong>
+                    <strong>{formatDateTime(p.start)}</strong>
                     <span>
-                      {p.durationMinutes} min · máx. {p.maxElevation}° hacia el {p.direction}
+                      {p.durationMinutes} min · máx. {formatDegrees(p.maxElevation, 0)} hacia el {p.direction}
                     </span>
                     <span className="muted">
                       Sale por el {compass(p.riseAzimuth)} y se pone por el {compass(p.setAzimuth)}
@@ -232,8 +206,7 @@ export default function Iss() {
             </ol>
           ) : (
             <p className="muted">
-              En las próximas {passes.checkedHours} h no hay pases cómodos desde este punto. Prueba con 48 h o con
-              otra ciudad.
+              En las próximas {passes.checkedHours} h no hay pases cómodos desde este punto. Prueba con 48 h.
             </p>
           )}
         </section>
