@@ -16,3 +16,17 @@
 
 La constelación de inicio es el menú principal. En el resto de páginas se
 muestra una versión compacta de la misma constelación.
+
+## Parámetros
+
+- `/observar` y `/carta` no reciben latitud ni longitud por la URL. El lugar se
+  resuelve con `useSkyPlace` y se envía a la API.
+- `/carta` acepta un selector de fecha y hora; la ubicación sigue siendo
+  automática.
+- `/objeto/:slug` usa el nivel del perfil cuando existe.
+
+## Navegación
+
+- El menú compacto se desplaza en horizontal en pantallas pequeñas.
+- `ScrollToTop` vuelve al inicio en cada cambio de ruta.
+- Cualquier ruta desconocida muestra la página 404 con salida al inicio.
