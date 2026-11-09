@@ -56,6 +56,7 @@ export default function LocationPicker({ onGps, onSelect }) {
             type="search"
             autoComplete="off"
             spellCheck={false}
+            maxLength={80}
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Busca tu ciudad"
