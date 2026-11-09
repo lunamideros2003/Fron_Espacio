@@ -16,7 +16,7 @@ npm run dev
 Abre http://localhost:5173
 
 Vite reenvía `/api` hacia FastAPI (`http://localhost:4000`). Para producción
-configura `VITE_API_URL`; revisa `.env.example`.
+configura `VITE_API_URL`; revisa `docs/ENV.md`.
 
 ## Qué incluye
 
@@ -36,11 +36,23 @@ npm test
 npm run build
 ```
 
+## Base de datos
+
+El frontend no habla con Supabase. Solo consume la API de Render, que guarda
+los datos en Postgres. La única variable necesaria es `VITE_API_URL`; nunca se
+exponen claves de Supabase en el navegador.
+
 ## Documentación
 
 - `docs/ARQUITECTURA.md`
+- `docs/ESTRUCTURA.md`
 - `docs/RUTAS.md`
+- `docs/MENU.md`
 - `docs/UBICACION.md`
 - `docs/ACCESIBILIDAD.md`
 - `docs/DESPLIEGUE.md`
+- `docs/VERCEL.md`
+- `docs/ENV.md`
 - `docs/SUPABASE.md`
+- `docs/PRUEBAS.md`
+- `docs/CONTRIBUCION.md`
