@@ -721,3 +721,28 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
+@media print {
+  .topbar,
+  .constellation-bar,
+  .chat-launcher,
+  .place-note,
+  .actions {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #111;
+  }
+
+  .glass {
+    background: #fff;
+    border-color: #bbb;
+    box-shadow: none;
+  }
+
+  .carta-layout {
+    display: block;
+  }
+}
