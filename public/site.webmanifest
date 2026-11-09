@@ -3,9 +3,17 @@
   "short_name": "AstroIA",
   "description": "Explorador inteligente del universo con cielo en vivo, carta celeste y chatbot.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#020510",
   "theme_color": "#020510",
   "lang": "es",
-  "icons": []
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }
