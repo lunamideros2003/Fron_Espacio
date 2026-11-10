@@ -1,49 +1,56 @@
-# AstroIA — Frontend (Vite + React)
+# AstroIA
 
-Aplicación web del explorador inteligente del universo. El menú principal es
-una constelación: cada estrella abre una sección.
+Hice esta página para aprender del cielo de una forma fácil. El menú es una
+constelación y cada estrella abre una sección distinta.
 
-## Arranque
+## Cómo verla en mi computador
 
-Con el backend FastAPI corriendo en el puerto 4000:
+1. Abro una terminal en `Back_Espacio` y enciendo el backend:
 
-```bash
-cd Fron_Espacio
-npm install
-npm run dev
+   ```bash
+   .venv\Scripts\python.exe -m uvicorn app.main:app --port 4000
+   ```
+
+2. Abro otra terminal en `Fron_Espacio`, instalo lo necesario la primera vez y
+   arranco la página:
+
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+3. Entro a http://localhost:5173
+
+Si el backend está apagado, la página me avisa que no puede conectar con el
+servidor.
+
+## Qué se puede hacer
+
+- Ver el cielo de esta noche con mi ubicación automática.
+- Abrir la carta celeste con estrellas, planetas y Luna.
+- Buscar objetos, clasificar luces y hacer cuestionarios.
+- Crear mi cuenta, entrar y guardar mis observaciones.
+- Hablar con el chatbot, que tiene un robot que saluda.
+
+## Cómo la publico
+
+Uso Vercel. En las variables del proyecto pongo la dirección del backend:
+
+```env
+VITE_API_URL=https://back-espacio.onrender.com
 ```
 
-Abre http://localhost:5173
+Sin barra al final. Después hago un redeploy para que tome el cambio. Nunca
+pongo claves de Supabase en el frontend.
 
-Vite reenvía `/api` hacia FastAPI (`http://localhost:4000`). Para producción
-configura `VITE_API_URL`; revisa `docs/ENV.md`.
-
-## Qué incluye
-
-- Inicio con menú constelación interactivo y accesible.
-- Ubicación automática: GPS, perfil, IP o búsqueda de ciudad. **Sin latitud y
-  longitud manuales.**
-- Carta celeste circular con estrellas, planetas y Luna.
-- Recomendaciones para esta noche con clima real.
-- Catálogo, clasificador de luces, quiz y perfil.
-- Registro y login con validación de correo (exige `@`), clave y nombre.
-- Chatbot flotante con icono de robot que saluda.
-- Rastreador de la ISS disponible en `/iss` (ya no aparece en el menú).
-
-## Pruebas y build
+## Pruebas
 
 ```bash
 npm test
 npm run build
 ```
 
-## Base de datos
-
-El frontend no habla con Supabase. Solo consume la API de Render, que guarda
-los datos en Postgres. La única variable necesaria es `VITE_API_URL`; nunca se
-exponen claves de Supabase en el navegador.
-
-## Documentación
+## Más detalles
 
 - `docs/ARQUITECTURA.md`
 - `docs/ESTRUCTURA.md`
