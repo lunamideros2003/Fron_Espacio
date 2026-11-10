@@ -63,6 +63,10 @@ export default function Entrar() {
             <input
               value={form.name}
               onChange={(e) => set("name", e.target.value)}
+              onBlur={() => {
+                if (!form.name.trim()) return;
+                setFieldErrors((errors) => ({ ...errors, name: fieldError("name", mode, form) }));
+              }}
               required
               autoComplete="name"
               aria-invalid={fieldErrors.name ? "true" : undefined}
