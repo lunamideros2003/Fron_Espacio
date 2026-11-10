@@ -97,6 +97,7 @@ export default function Entrar() {
           value={form.password}
           onChange={(e) => set("password", e.target.value)}
           required
+          autoComplete={mode === "login" ? "current-password" : "new-password"}
           aria-invalid={fieldErrors.password ? "true" : undefined}
           aria-describedby={fieldErrors.password ? "password-error" : undefined}
         />
