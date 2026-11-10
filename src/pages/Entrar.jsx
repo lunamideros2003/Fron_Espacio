@@ -88,7 +88,19 @@ export default function Entrar() {
       </label>
       <label>
         Contraseña
-        <input type="password" value={form.password} onChange={(e) => set("password", e.target.value)} required />
+        <input
+          type="password"
+          value={form.password}
+          onChange={(e) => set("password", e.target.value)}
+          required
+          aria-invalid={fieldErrors.password ? "true" : undefined}
+          aria-describedby={fieldErrors.password ? "password-error" : undefined}
+        />
+        {fieldErrors.password && (
+          <span className="field-error" id="password-error" role="alert">
+            {fieldErrors.password}
+          </span>
+        )}
       </label>
       {error && <p className="bad">{error}</p>}
       <button className="btn">{mode === "login" ? "Entrar" : "Registrarme"}</button>
