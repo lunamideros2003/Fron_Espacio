@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api.js";
 import { useAuth } from "../context/AuthContext.jsx";
-import { fieldError, validateForm } from "../lib/validate.js";
+import { validateForm } from "../lib/validate.js";
 
 export default function Entrar() {
   const { login } = useAuth();
@@ -62,10 +62,6 @@ export default function Entrar() {
             <input
               value={form.name}
               onChange={(e) => set("name", e.target.value)}
-              onBlur={() => {
-                if (!form.name.trim()) return;
-                setFieldErrors((errors) => ({ ...errors, name: fieldError("name", mode, form) }));
-              }}
               required
               autoComplete="name"
               aria-invalid={fieldErrors.name ? "true" : undefined}
@@ -93,10 +89,6 @@ export default function Entrar() {
           type="email"
           value={form.email}
           onChange={(e) => set("email", e.target.value)}
-          onBlur={() => {
-            if (!form.email.trim()) return;
-            setFieldErrors((errors) => ({ ...errors, email: fieldError("email", mode, form) }));
-          }}
           required
           autoComplete="email"
           inputMode="email"
@@ -116,10 +108,6 @@ export default function Entrar() {
           type="password"
           value={form.password}
           onChange={(e) => set("password", e.target.value)}
-          onBlur={() => {
-            if (!form.password.trim()) return;
-            setFieldErrors((errors) => ({ ...errors, password: fieldError("password", mode, form) }));
-          }}
           required
           autoComplete={mode === "login" ? "current-password" : "new-password"}
           aria-invalid={fieldErrors.password ? "true" : undefined}
