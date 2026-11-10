@@ -403,6 +403,11 @@ select {
   height: 40px;
   display: block;
   filter: drop-shadow(0 2px 6px rgba(79, 214, 255, 0.35));
+  transition: transform 0.18s ease;
+}
+
+.chat-fab:hover .chat-fab-robot {
+  transform: rotate(-7deg) scale(1.03);
 }
 
 .chat-fab:hover {
