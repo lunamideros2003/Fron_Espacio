@@ -53,7 +53,7 @@ export default function Entrar() {
   }
 
   return (
-    <form className="glass card auth" onSubmit={submit}>
+    <form className="glass card auth" onSubmit={submit} noValidate>
       <p className="eyebrow">Cuenta</p>
       <h1>{mode === "login" ? "Entrar a AstroIA" : "Crear explorador"}</h1>
       {mode === "register" && (
