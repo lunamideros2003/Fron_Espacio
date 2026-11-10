@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../api.js";
 import PlaceNote from "../components/PlaceNote.jsx";
 import { useSkyPlace } from "../hooks/useSkyPlace.js";
-import { formatDateTime } from "../lib/format.js";
+import { formatDateTime, toIsoDate } from "../lib/format.js";
 
 const CENTER = 500;
 const HORIZON = 450;
@@ -54,8 +54,15 @@ export default function Carta() {
     (async () => {
       setLoading(true);
       setError("");
+      const iso = when ? toIsoDate(when) : undefined;
+      if (when && !iso) {
+        if (!cancel) {
+          setError("Esa fecha no es válida. Elige otra.");
+          setLoading(false);
+        }
+        return;
+      }
       try {
-        const iso = when ? new Date(when).toISOString() : undefined;
         const d = await api.skyChart(place.latitude, place.longitude, iso);
         if (!cancel) {
           setData(d);
@@ -92,7 +99,13 @@ export default function Carta() {
         </div>
         <label className="loc-form">
           <span className="muted">Otro momento</span>
-          <input type="datetime-local" value={when} onChange={(e) => setWhen(e.target.value)} />
+          <input
+            type="datetime-local"
+            value={when}
+            min="1900-01-01T00:00"
+            max="2100-12-31T23:59"
+            onChange={(e) => setWhen(e.target.value)}
+          />
           {when && (
             <button type="button" className="ghost" onClick={() => setWhen("")}>
               Ahora
