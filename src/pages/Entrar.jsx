@@ -28,6 +28,12 @@ export default function Entrar() {
     if (error) setError("");
   }
 
+  function switchMode() {
+    setMode(mode === "login" ? "register" : "login");
+    setFieldErrors({});
+    setError("");
+  }
+
   async function submit(e) {
     e.preventDefault();
     setError("");
@@ -119,7 +125,7 @@ export default function Entrar() {
       <button
         type="button"
         className="ghost"
-        onClick={() => setMode(mode === "login" ? "register" : "login")}
+        onClick={switchMode}
       >
         {mode === "login" ? "¿No tienes cuenta? Regístrate" : "Ya tengo cuenta"}
       </button>
