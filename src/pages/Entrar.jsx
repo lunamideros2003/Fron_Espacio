@@ -47,7 +47,18 @@ export default function Entrar() {
         <>
           <label>
             Nombre
-            <input value={form.name} onChange={(e) => set("name", e.target.value)} required />
+            <input
+              value={form.name}
+              onChange={(e) => set("name", e.target.value)}
+              required
+              aria-invalid={fieldErrors.name ? "true" : undefined}
+              aria-describedby={fieldErrors.name ? "name-error" : undefined}
+            />
+            {fieldErrors.name && (
+              <span className="field-error" id="name-error" role="alert">
+                {fieldErrors.name}
+              </span>
+            )}
           </label>
           <label>
             Nivel
