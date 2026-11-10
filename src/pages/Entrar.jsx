@@ -10,8 +10,8 @@ export default function Entrar() {
   const [mode, setMode] = useState("login");
   const [form, setForm] = useState({
     name: "",
-    email: "luna@astroia.dev",
-    password: "astroia123",
+    email: "",
+    password: "",
     level: "beginner",
   });
   const [error, setError] = useState("");
@@ -125,14 +125,9 @@ export default function Entrar() {
         </p>
       )}
       <button className="btn">{mode === "login" ? "Entrar" : "Registrarme"}</button>
-      <button
-        type="button"
-        className="ghost"
-        onClick={switchMode}
-      >
+      <button type="button" className="ghost" onClick={switchMode}>
         {mode === "login" ? "¿No tienes cuenta? Regístrate" : "Ya tengo cuenta"}
       </button>
-      <p className="muted">Demo: luna@astroia.dev / astroia123</p>
     </form>
   );
 }
