@@ -11,3 +11,7 @@ export function isEmail(value) {
 export function isPassword(value) {
   return String(value || "").trim().length >= 8;
 }
+
+export function isName(value) {
+  return String(value || "").trim().length >= 2;
+}
