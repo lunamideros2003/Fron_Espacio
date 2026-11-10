@@ -113,6 +113,10 @@ export default function Entrar() {
           type="password"
           value={form.password}
           onChange={(e) => set("password", e.target.value)}
+          onBlur={() => {
+            if (!form.password.trim()) return;
+            setFieldErrors((errors) => ({ ...errors, password: fieldError("password", mode, form) }));
+          }}
           required
           autoComplete={mode === "login" ? "current-password" : "new-password"}
           aria-invalid={fieldErrors.password ? "true" : undefined}
