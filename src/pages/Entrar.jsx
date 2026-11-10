@@ -61,7 +61,19 @@ export default function Entrar() {
       )}
       <label>
         Correo
-        <input type="email" value={form.email} onChange={(e) => set("email", e.target.value)} required />
+        <input
+          type="email"
+          value={form.email}
+          onChange={(e) => set("email", e.target.value)}
+          required
+          aria-invalid={fieldErrors.email ? "true" : undefined}
+          aria-describedby={fieldErrors.email ? "email-error" : undefined}
+        />
+        {fieldErrors.email && (
+          <span className="field-error" id="email-error" role="alert">
+            {fieldErrors.email}
+          </span>
+        )}
       </label>
       <label>
         Contraseña
