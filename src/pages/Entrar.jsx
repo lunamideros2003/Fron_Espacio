@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api.js";
 import { useAuth } from "../context/AuthContext.jsx";
-import { validateForm } from "../lib/validate.js";
+import { fieldError, validateForm } from "../lib/validate.js";
 
 export default function Entrar() {
   const { login } = useAuth();
@@ -90,6 +90,10 @@ export default function Entrar() {
           type="email"
           value={form.email}
           onChange={(e) => set("email", e.target.value)}
+          onBlur={() => {
+            if (!form.email.trim()) return;
+            setFieldErrors((errors) => ({ ...errors, email: fieldError("email", mode, form) }));
+          }}
           required
           autoComplete="email"
           inputMode="email"
