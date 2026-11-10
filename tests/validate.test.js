@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isEmail, isName, isPassword, normalizeEmail, validateForm } from "../src/lib/validate.js";
+import { fieldError, isEmail, isName, isPassword, normalizeEmail, validateForm } from "../src/lib/validate.js";
 
 test("email requires at and a domain", () => {
   assert.equal(isEmail("luna@astroia.dev"), true);
@@ -71,4 +71,10 @@ test("valid form has no errors", () => {
     validateForm("login", { email: "luna@astroia.dev", password: "astroia123" }),
     {}
   );
+});
+
+test("fieldError returns the message for one field", () => {
+  const form = { name: "Luna", email: "luna.astroia.dev", password: "astroia123" };
+  assert.match(fieldError("email", "register", form), /@/);
+  assert.equal(fieldError("name", "register", form), "");
 });
