@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { api } from "../api.js";
 import { useAuth } from "../context/AuthContext.jsx";
+import RobotIcon from "./RobotIcon.jsx";
 
 // Convierte **texto** del chatbot en negrita real.
 export function renderBold(text) {
@@ -99,10 +100,10 @@ export default function ChatWidget() {
       <button
         type="button"
         className="chat-fab"
-        aria-label={open ? "Cerrar asistente" : "Abrir asistente"}
+        aria-label={open ? "Cerrar chat de AstroIA" : "Abrir chat de AstroIA"}
         onClick={() => setOpen((v) => !v)}
       >
-        {open ? "✕" : "✦"}
+        {open ? <span className="chat-fab-close">✕</span> : <RobotIcon className="chat-fab-robot" />}
       </button>
     </div>
   );
