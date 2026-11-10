@@ -19,6 +19,13 @@ export default function Entrar() {
 
   function set(k, v) {
     setForm((f) => ({ ...f, [k]: v }));
+    setFieldErrors((errors) => {
+      if (!errors[k]) return errors;
+      const next = { ...errors };
+      delete next[k];
+      return next;
+    });
+    if (error) setError("");
   }
 
   async function submit(e) {
