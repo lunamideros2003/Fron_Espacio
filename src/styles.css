@@ -354,9 +354,20 @@ select {
 
 .opt {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.6rem;
   align-items: center;
+  justify-content: flex-start;
   margin: 0.4rem 0;
+  cursor: pointer;
+}
+
+.opt input[type="radio"] {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--accent);
 }
 
 .ok {
@@ -382,8 +393,8 @@ select {
 }
 
 .chat-fab {
-  width: 58px;
-  height: 58px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   border: 1px solid var(--line);
   background: linear-gradient(145deg, rgba(22, 46, 98, 0.96), rgba(7, 15, 34, 0.96));
@@ -399,8 +410,8 @@ select {
 }
 
 .chat-fab-robot {
-  width: 40px;
-  height: 40px;
+  width: 76px;
+  height: 76px;
   display: block;
   filter: drop-shadow(0 2px 6px rgba(79, 214, 255, 0.35));
   transition: transform 0.18s ease;
@@ -408,6 +419,12 @@ select {
 
 .chat-fab:hover .chat-fab-robot {
   transform: rotate(-7deg) scale(1.03);
+}
+
+.chat-fab-close {
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--text);
 }
 
 .chat-fab:hover {
@@ -422,8 +439,8 @@ select {
 }
 
 .chat-head-robot {
-  width: 40px;
-  height: 40px;
+  width: 56px;
+  height: 56px;
   flex: 0 0 auto;
 }
 
