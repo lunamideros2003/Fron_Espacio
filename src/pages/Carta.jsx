@@ -3,6 +3,7 @@ import { api } from "../api.js";
 import PlaceNote from "../components/PlaceNote.jsx";
 import { useSkyPlace } from "../hooks/useSkyPlace.js";
 import { formatDateTime, toIsoDate } from "../lib/format.js";
+import { buildMoment, momentWarning } from "../lib/moment.js";
 
 const CENTER = 500;
 const HORIZON = 450;
@@ -42,14 +43,35 @@ function placeBodyLabels(bodies) {
 export default function Carta() {
   const skyPlace = useSkyPlace();
   const { place } = skyPlace;
-  const [when, setWhen] = useState("");
+  const [date, setDate] = useState("");
+  const [hour, setHour] = useState("");
+  const [minute, setMinute] = useState("");
+  const [period, setPeriod] = useState("AM");
   const [data, setData] = useState(null);
   const [selected, setSelected] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const when = buildMoment(date, hour, minute, period);
+  const warning = momentWarning(date, hour, minute);
+
+  function resetMoment() {
+    setDate("");
+    setHour("");
+    setMinute("");
+    setPeriod("AM");
+  }
+
+  function onlyDigits(value, maxLength) {
+    return value.replace(/\D/g, "").slice(0, maxLength);
+  }
+
   useEffect(() => {
     if (!place) return;
+    if (warning) {
+      setLoading(false);
+      return;
+    }
     let cancel = false;
     (async () => {
       setLoading(true);
@@ -77,7 +99,7 @@ export default function Carta() {
     return () => {
       cancel = true;
     };
-  }, [place, when]);
+  }, [place, when, warning]);
 
   const bright = data
     ? data.stars.filter((s) => s.visible).sort((a, b) => a.magnitude - b.magnitude).slice(0, 12)
@@ -97,21 +119,64 @@ export default function Carta() {
           </p>
           <PlaceNote {...skyPlace} />
         </div>
-        <label className="loc-form">
-          <span className="muted">Otro momento</span>
-          <input
-            type="datetime-local"
-            value={when}
-            min="1900-01-01T00:00"
-            max="2100-12-31T23:59"
-            onChange={(e) => setWhen(e.target.value)}
-          />
-          {when && (
-            <button type="button" className="ghost" onClick={() => setWhen("")}>
-              Ahora
-            </button>
-          )}
-        </label>
+        <fieldset className="moment-form">
+          <legend>Otro momento</legend>
+          <p className="moment-hint">Pon el día, la fecha, el año y la hora.</p>
+          <div className="moment-fields">
+            <label>
+              <span>Día, fecha y año</span>
+              <input
+                type="date"
+                value={date}
+                min="1900-01-01"
+                max="2026-12-31"
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </label>
+            <label>
+              <span>Hora</span>
+              <span className="moment-time-row">
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="off"
+                  maxLength={2}
+                  placeholder="HH"
+                  aria-label="Hora"
+                  value={hour}
+                  onChange={(e) => setHour(onlyDigits(e.target.value, 2))}
+                />
+                <span aria-hidden="true">:</span>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  autoComplete="off"
+                  maxLength={2}
+                  placeholder="MM"
+                  aria-label="Minutos"
+                  value={minute}
+                  onChange={(e) => setMinute(onlyDigits(e.target.value, 2))}
+                />
+                <select aria-label="AM o PM" value={period} onChange={(e) => setPeriod(e.target.value)}>
+                  <option value="AM">AM</option>
+                  <option value="PM">PM</option>
+                </select>
+              </span>
+            </label>
+          </div>
+          <div className="moment-foot">
+            {warning && (
+              <p className="moment-warning" role="alert">
+                {warning}
+              </p>
+            )}
+            {(date || hour || minute) && (
+              <button type="button" className="ghost" onClick={resetMoment}>
+                Ahora
+              </button>
+            )}
+          </div>
+        </fieldset>
       </section>
 
       {error && <p className="glass card">{error}</p>}

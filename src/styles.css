@@ -179,6 +179,77 @@ h3 {
   align-items: center;
 }
 
+.moment-form {
+  min-width: min(100%, 310px);
+  margin: 0;
+  padding: 0.95rem 1.05rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(5, 12, 28, 0.4);
+}
+
+.moment-form legend {
+  padding: 0 0.35rem;
+  color: var(--gold);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.moment-hint {
+  margin: 0 0 0.7rem;
+  color: var(--muted);
+  font-size: 0.83rem;
+}
+
+.moment-fields {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.moment-fields label {
+  display: grid;
+  gap: 0.25rem;
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+.moment-time-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.moment-time-row input {
+  width: 3.4rem;
+  padding: 0.55rem 0.3rem;
+  text-align: center;
+}
+
+.moment-time-row select {
+  width: auto;
+  padding: 0.55rem 0.45rem;
+}
+
+.moment-foot {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.55rem;
+}
+
+.moment-warning {
+  margin: 0;
+  color: #ffd27d;
+  font-size: 0.82rem;
+}
+
+.moment-foot .ghost {
+  margin-left: auto;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.82rem;
+}
+
 .user-chip {
   color: var(--muted);
   text-decoration: none;
