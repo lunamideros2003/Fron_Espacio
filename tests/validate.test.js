@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isEmail, isPassword, normalizeEmail } from "../src/lib/validate.js";
+import { isEmail, isName, isPassword, normalizeEmail } from "../src/lib/validate.js";
 
 test("email requires at and a domain", () => {
   assert.equal(isEmail("luna@astroia.dev"), true);
@@ -24,4 +24,11 @@ test("password requires eight characters", () => {
   assert.equal(isPassword("astroia"), false);
   assert.equal(isPassword(""), false);
   assert.equal(isPassword("        "), false);
+});
+
+test("name requires two letters", () => {
+  assert.equal(isName("Luna"), true);
+  assert.equal(isName(" Lu "), true);
+  assert.equal(isName("L"), false);
+  assert.equal(isName(""), false);
 });
