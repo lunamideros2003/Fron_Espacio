@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isEmail, isName, isPassword, normalizeEmail } from "../src/lib/validate.js";
+import { isEmail, isName, isPassword, normalizeEmail, validateForm } from "../src/lib/validate.js";
 
 test("email requires at and a domain", () => {
   assert.equal(isEmail("luna@astroia.dev"), true);
@@ -31,4 +31,44 @@ test("name requires two letters", () => {
   assert.equal(isName(" Lu "), true);
   assert.equal(isName("L"), false);
   assert.equal(isName(""), false);
+});
+
+test("register form reports missing at", () => {
+  const errors = validateForm("register", {
+    name: "Luna",
+    email: "luna.astroia.dev",
+    password: "astroia123",
+  });
+  assert.match(errors.email, /@/);
+});
+
+test("register form reports short password", () => {
+  const errors = validateForm("register", {
+    name: "Luna",
+    email: "luna@astroia.dev",
+    password: "corta",
+  });
+  assert.match(errors.password, /8 caracteres/);
+});
+
+test("register form reports missing name", () => {
+  const errors = validateForm("register", {
+    name: "",
+    email: "luna@astroia.dev",
+    password: "astroia123",
+  });
+  assert.ok(errors.name);
+});
+
+test("login only reports empty password", () => {
+  const errors = validateForm("login", { email: "luna@astroia.dev", password: " " });
+  assert.equal(errors.password, "Escribe tu contraseña");
+  assert.equal(errors.email, undefined);
+});
+
+test("valid form has no errors", () => {
+  assert.deepEqual(
+    validateForm("login", { email: "luna@astroia.dev", password: "astroia123" }),
+    {}
+  );
 });
