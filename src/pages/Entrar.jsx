@@ -51,6 +51,7 @@ export default function Entrar() {
               value={form.name}
               onChange={(e) => set("name", e.target.value)}
               required
+              autoComplete="name"
               aria-invalid={fieldErrors.name ? "true" : undefined}
               aria-describedby={fieldErrors.name ? "name-error" : undefined}
             />
