@@ -6,9 +6,21 @@ async function request(path, options = {}) {
   const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
   const t = token();
   if (t) headers.Authorization = `Bearer ${t}`;
-  const res = await fetch(`${BASE}${path}`, { ...options, headers });
+  let res;
+  try {
+    res = await fetch(`${BASE}${path}`, { ...options, headers });
+  } catch {
+    if (BASE) {
+      throw new Error(
+        `No pudimos conectar con ${BASE}. Revisa que el backend este encendido y que CORS permita este dominio.`
+      );
+    }
+    throw new Error("No pudimos conectar con el servidor. En local, inicia el backend en el puerto 4000.");
+  }
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || data.detail || "No pudimos conectar con el servidor.");
+  if (!res.ok) {
+    throw new Error(data.error || data.detail || `El servidor respondio con estado ${res.status}.`);
+  }
   return data;
 }
 
