@@ -369,7 +369,6 @@ select {
   color: var(--accent);
 }
 
-/* ===== Chat flotante (burbuja inferior derecha) ===== */
 .chat-widget {
   position: fixed;
   right: 1.2rem;
