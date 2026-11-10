@@ -325,10 +325,11 @@ select {
 }
 
 .bubble {
-  max-width: 80%;
-  padding: 0.8rem 1rem;
+  max-width: 82%;
+  padding: 0.85rem 1.05rem;
   border-radius: 16px;
-  line-height: 1.45;
+  font-size: 0.98rem;
+  line-height: 1.5;
   white-space: pre-wrap;
 }
 
@@ -427,8 +428,8 @@ select {
 }
 
 .chat-panel {
-  width: min(370px, calc(100vw - 2rem));
-  height: min(540px, calc(100vh - 7rem));
+  width: min(430px, calc(100vw - 2rem));
+  height: min(640px, calc(100vh - 5.5rem));
   display: flex;
   flex-direction: column;
   padding: 0;
