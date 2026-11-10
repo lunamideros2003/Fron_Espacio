@@ -40,7 +40,6 @@ export default function Entrar() {
     const errors = validateForm(mode, form);
     setFieldErrors(errors);
     if (Object.keys(errors).length > 0) {
-      setError("Revisa los campos marcados.");
       return;
     }
     try {
@@ -132,7 +131,11 @@ export default function Entrar() {
           </span>
         )}
       </label>
-      {error && <p className="bad">{error}</p>}
+      {(error || Object.keys(fieldErrors).length > 0) && (
+        <p className="bad" role="alert">
+          {error || "Revisa los campos marcados."}
+        </p>
+      )}
       <button className="btn">{mode === "login" ? "Entrar" : "Registrarme"}</button>
       <button
         type="button"
