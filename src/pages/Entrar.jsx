@@ -78,6 +78,9 @@ export default function Entrar() {
           value={form.email}
           onChange={(e) => set("email", e.target.value)}
           required
+          autoComplete="email"
+          inputMode="email"
+          spellCheck={false}
           aria-invalid={fieldErrors.email ? "true" : undefined}
           aria-describedby={fieldErrors.email ? "email-error" : undefined}
         />
