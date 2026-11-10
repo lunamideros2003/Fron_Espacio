@@ -7,3 +7,7 @@ export function normalizeEmail(value) {
 export function isEmail(value) {
   return EMAIL_PATTERN.test(normalizeEmail(value));
 }
+
+export function isPassword(value) {
+  return String(value || "").trim().length >= 8;
+}
