@@ -14,6 +14,13 @@
   al elegir un resultado.
 - Las páginas tienen título propio (`document.title`) y la 404 tiene salida
   clara hacia el inicio.
+- El formulario de cuenta muestra el error debajo de cada campo con
+  `role="alert"`, `aria-invalid` y `aria-describedby`.
+- El correo exige `@` y dominio; la clave exige 8 caracteres al registrarse.
+- Los errores desaparecen al escribir y al cambiar entre entrar y registrarse.
+- Los campos usan `autocomplete` y `inputMode="email"` para teclados móviles.
+- El botón del chat tiene etiqueta "Abrir chat de AstroIA"; el robot interior
+  es decorativo (`aria-hidden`) y no se anuncia dos veces.
 
 ## Revisión rápida
 
