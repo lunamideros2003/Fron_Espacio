@@ -24,8 +24,9 @@
 ## Dominios
 
 - El dominio estable es `https://fron-espacio.vercel.app`.
-- Vercel añade dominios de preview por cada rama. El backend ya permite el
-  dominio principal; si se usa otro dominio, agregarlo a `CORS_ORIGINS`.
+- El backend acepta el dominio principal y los previews
+  `fron-espacio-*.vercel.app`, así que no hay que agregarlos uno por uno.
+- Si usas un dominio propio, agrégalo a `CORS_ORIGINS` en Render.
 
 ## Problemas frecuentes
 

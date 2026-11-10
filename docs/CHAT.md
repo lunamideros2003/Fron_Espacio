@@ -12,6 +12,8 @@ chat.
 - En el botón flotante mide 40 px dentro de un círculo de 58 px.
 - Al pasar el cursor se inclina un poco, como si saludara.
 - El mismo robot aparece en la cabecera del panel.
+- El panel mide 430 px de ancho y 640 px de alto como máximo, para leer mejor
+  las respuestas.
 - El SVG es decorativo (`aria-hidden`); el botón tiene su propia etiqueta
   "Abrir chat de AstroIA".
 - Con `prefers-reduced-motion` el movimiento se desactiva.
