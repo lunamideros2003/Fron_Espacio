@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api.js";
 import { useAuth } from "../context/AuthContext.jsx";
+import { validateForm } from "../lib/validate.js";
 
 export default function Entrar() {
   const { login } = useAuth();
@@ -14,6 +15,7 @@ export default function Entrar() {
     level: "beginner",
   });
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
 
   function set(k, v) {
     setForm((f) => ({ ...f, [k]: v }));
@@ -22,6 +24,12 @@ export default function Entrar() {
   async function submit(e) {
     e.preventDefault();
     setError("");
+    const errors = validateForm(mode, form);
+    setFieldErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      setError("Revisa los campos marcados.");
+      return;
+    }
     try {
       const d = mode === "login" ? await api.login(form) : await api.register(form);
       login(d);
