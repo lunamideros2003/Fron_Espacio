@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { clamp, formatCount, formatDateTime, formatDegrees, formatLocalTime, formatTime, parseUtc } from "../src/lib/format.js";
+import { clamp, formatCount, formatDateTime, formatDegrees, formatLocalTime, formatTime, parseUtc, toIsoDate } from "../src/lib/format.js";
 
 test("clamp keeps values inside the range", () => {
   assert.equal(clamp(5, 0, 10), 5);
@@ -45,4 +45,16 @@ test("formatLocalTime keeps the clock from a local timestamp", () => {
 test("formatCount returns a string", () => {
   assert.equal(typeof formatCount(1234), "string");
   assert.equal(formatCount(Number.NaN), "0");
+});
+
+test("toIsoDate ignores empty and invalid dates", () => {
+  assert.equal(toIsoDate(""), "");
+  assert.equal(toIsoDate("23/03/199944 04:44 p.m."), "");
+  assert.equal(toIsoDate("nope"), "");
+});
+
+test("toIsoDate converts a valid local date", () => {
+  const iso = toIsoDate("2026-11-08T17:55");
+  assert.ok(iso.endsWith("Z"));
+  assert.equal(Number.isNaN(new Date(iso).getTime()), false);
 });
