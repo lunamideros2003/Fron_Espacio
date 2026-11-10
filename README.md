@@ -26,7 +26,8 @@ configura `VITE_API_URL`; revisa `docs/ENV.md`.
 - Carta celeste circular con estrellas, planetas y Luna.
 - Recomendaciones para esta noche con clima real.
 - Catálogo, clasificador de luces, quiz y perfil.
-- Chatbot flotante.
+- Registro y login con validación de correo (exige `@`), clave y nombre.
+- Chatbot flotante con icono de robot que saluda.
 - Rastreador de la ISS disponible en `/iss` (ya no aparece en el menú).
 
 ## Pruebas y build
@@ -54,5 +55,6 @@ exponen claves de Supabase en el navegador.
 - `docs/VERCEL.md`
 - `docs/ENV.md`
 - `docs/SUPABASE.md`
+- `docs/CHAT.md`
 - `docs/PRUEBAS.md`
 - `docs/CONTRIBUCION.md`
