@@ -9,9 +9,9 @@ El botón usa `RobotIcon.jsx`: un robot amigable que saluda, dibujado en SVG y
 sin imágenes externas. Antes era un destello (✦) y no se entendía que fuera un
 chat.
 
-- En el botón flotante mide 40 px dentro de un círculo de 58 px.
+- En el botón flotante el robot mide 76 px dentro de un círculo de 96 px.
 - Al pasar el cursor se inclina un poco, como si saludara.
-- El mismo robot aparece en la cabecera del panel.
+- El mismo robot aparece en la cabecera del panel, a 56 px.
 - El panel mide 430 px de ancho y 640 px de alto como máximo, para leer mejor
   las respuestas.
 - El SVG es decorativo (`aria-hidden`); el botón tiene su propia etiqueta
