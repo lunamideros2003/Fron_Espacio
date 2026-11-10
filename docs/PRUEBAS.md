@@ -1,7 +1,8 @@
 # Pruebas del frontend
 
 Las pruebas usan el runner nativo de Node (`node --test`), sin dependencias extra.
-Solo cubren lógica pura: constelaciones, formato, almacenamiento y textos.
+Solo cubren lógica pura: constelaciones, formato, almacenamiento, validación y
+textos.
 
 ## Comandos
 
@@ -25,6 +26,8 @@ npm run build   # compila con Vite y detecta errores de imports
 | `tests/dust.test.js` | Polvo estelar decorativo |
 | `tests/accountStar.test.js` | Etiqueta dinámica de la cuenta |
 | `tests/format.test.js` | Formatos de fecha, hora y números |
+| `tests/validate.test.js` | Correo con @, clave de 8 y nombre de 2 letras |
+| `tests/menuRoutes.test.js` | Rutas y etiquetas del menú |
 
 ## Al agregar pruebas
 
