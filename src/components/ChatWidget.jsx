@@ -3,7 +3,6 @@ import { api } from "../api.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import RobotIcon from "./RobotIcon.jsx";
 
-// Convierte **texto** del chatbot en negrita real.
 export function renderBold(text) {
   return String(text)
     .split(/\*\*(.+?)\*\*/g)
