@@ -6,11 +6,13 @@ GPS.
 
 ## Carpetas
 
-- `src/components`: piezas reutilizables (menú constelación, ubicación, chat).
+- `src/components`: piezas reutilizables (menú constelación, ubicación, chat,
+  robot del chat).
 - `src/constellation`: datos y utilidades puras del menú (estrellas, líneas,
   geometría, polvo estelar). Se pueden probar con Node sin DOM.
 - `src/hooks`: estado con efectos (`useSkyPlace`, `usePlaceSearch`, ...).
-- `src/lib`: utilidades sin React (formato, almacenamiento, caché de ubicación).
+- `src/lib`: utilidades sin React (formato, almacenamiento, caché de ubicación,
+  validación de correo, clave y nombre).
 - `src/pages`: una página por ruta.
 - `src/context`: sesión JWT del usuario.
 
