@@ -54,16 +54,19 @@ export default function ChatWidget() {
       {open && (
         <div className="chat-panel glass">
           <header className="chat-panel-head">
-            <div>
-              <p className="eyebrow">Chatbot astronómico</p>
-              <h3>Habla con AstroIA</h3>
-              <span className="ai-badge">
-                {provider === "gemini"
-                  ? "IA: Google Gemini"
-                  : provider === "groq"
-                    ? "IA: Groq · Llama"
-                    : "IA: modo local"}
-              </span>
+            <div className="chat-head-id">
+              <RobotIcon className="chat-head-robot" />
+              <div>
+                <p className="eyebrow">Chatbot astronómico</p>
+                <h3>Habla con AstroIA</h3>
+                <span className="ai-badge">
+                  {provider === "gemini"
+                    ? "IA: Google Gemini"
+                    : provider === "groq"
+                      ? "IA: Groq · Llama"
+                      : "IA: modo local"}
+                </span>
+              </div>
             </div>
             <button
               type="button"
