@@ -25,38 +25,46 @@ export default function ConstellationMenu({ compact = false }) {
   }
 
   return (
-    <div className={`constellation-stage${compact ? " is-compact" : ""}`} aria-label="Menú del cielo">
-      <svg
-        className="constellation-svg"
-        viewBox={`0 0 ${view.w} ${view.h}`}
-        aria-hidden="true"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        {dust.map((dot) => (
-          <circle key={dot.id} cx={dot.x} cy={dot.y} r={dot.r} fill="#ffffff" opacity={dot.o} />
-        ))}
-        {lines.map((line) => (
-          <line key={line.key} className="constellation-line" x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} />
-        ))}
-      </svg>
-      {stars.map((star, index) => (
-        <Link
-          key={star.id}
-          to={star.to}
-          className={`constellation-hit${star.bright ? " is-bright" : ""}${active(star) ? " is-active" : ""}`}
-          style={{
-            left: percentX(star.x, view),
-            top: percentY(star.y, view),
-            animationDelay: `${index * 0.35}s`,
-          }}
-          data-side={star.side}
-          aria-current={active(star) ? "page" : undefined}
-          aria-label={star.label}
-          title={star.label}
+    <>
+      <p className="constellation-sign">Menú</p>
+      {!compact && (
+        <p className="constellation-hint">
+          A continuación, el menú: selecciona una sección que te gustaría explorar.
+        </p>
+      )}
+      <div className={`constellation-stage${compact ? " is-compact" : ""}`} aria-label="Menú del cielo">
+        <svg
+          className="constellation-svg"
+          viewBox={`0 0 ${view.w} ${view.h}`}
+          aria-hidden="true"
+          preserveAspectRatio="xMidYMid meet"
         >
-          <span className="constellation-label">{star.label}</span>
-        </Link>
-      ))}
-    </div>
+          {dust.map((dot) => (
+            <circle key={dot.id} cx={dot.x} cy={dot.y} r={dot.r} fill="#ffffff" opacity={dot.o} />
+          ))}
+          {lines.map((line) => (
+            <line key={line.key} className="constellation-line" x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} />
+          ))}
+        </svg>
+        {stars.map((star, index) => (
+          <Link
+            key={star.id}
+            to={star.to}
+            className={`constellation-hit${star.bright ? " is-bright" : ""}${active(star) ? " is-active" : ""}`}
+            style={{
+              left: percentX(star.x, view),
+              top: percentY(star.y, view),
+              animationDelay: `${index * 0.35}s`,
+            }}
+            data-side={star.side}
+            aria-current={active(star) ? "page" : undefined}
+            aria-label={star.label}
+            title={star.label}
+          >
+            <span className="constellation-label">{star.label}</span>
+          </Link>
+        ))}
+      </div>
+    </>
   );
 }
