@@ -39,3 +39,7 @@ export function validateForm(mode, form) {
   }
   return errors;
 }
+
+export function fieldError(field, mode, form) {
+  return validateForm(mode, form)[field] || "";
+}
