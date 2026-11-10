@@ -22,6 +22,16 @@ una estrella de una constelación inspirada en el Carro Mayor.
 Las dos variantes comparten las mismas rutas para que el menú sea consistente.
 La ISS no forma parte del menú; su página sigue disponible en `/iss`.
 
+## Señalización
+
+- Encima de la constelación hay un recuadro visible con la palabra `MENÚ`.
+- En la portada, debajo del recuadro, aparece una línea discreta que invita a
+  elegir una sección.
+- La estrella de la sección actual se ve al triple de su tamaño base, el doble
+  de cómo se veía antes.
+- Al pasar el cursor o llegar con el teclado, la estrella elegida duplica su
+  tamaño base.
+
 ## Accesibilidad
 
 - Cada estrella es un enlace real con texto visible.
